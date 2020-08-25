@@ -8,7 +8,7 @@ Improved version of caesar cipher encryption for plain text files.
 Before using the script:
 1. Gather target files inside ONE folder
 2. Edit and customize the path in the script
-3. (Optional) Customize keyfile name
+3. (Optional) Customize keyfile name in the script
 
 options: en -> encrypt files or de -> decrypt files<br/><br/>
 Usage (command):
