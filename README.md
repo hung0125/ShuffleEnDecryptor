@@ -10,7 +10,7 @@ Before using the script:
 2. Edit and customize the path in the script
 3. (Optional) Customize keyfile name
 
-options: en -> encrypt files || de -> decrypt files<br/><br/>
+options: en -> encrypt files or de -> decrypt files<br/><br/>
 Usage (command):
 1. python shuffleEnDecryptor.py en
 2. python shuffleEnDecryptor.py de
