@@ -41,7 +41,7 @@ def encryptContent():
     if len(targetFList) > 0:
         for i in range(len(targetFList)):
             try:
-                targetFileR = open(targetDir + targetFList[i], "r")
+                targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-8")
                 if "--EiNiCiRiYiPiTiEiD--" in targetFileR.read():
                     print("File is already encrypted: "+ targetFList[i]) 
                     continue
@@ -49,7 +49,7 @@ def encryptContent():
                 print("Unable to encrypt: " + targetFList[i])
                 continue
                 
-            targetFileR = open(targetDir + targetFList[i], "r")
+            targetFileR = open(targetDir + targetFList[i], "r", encoding="utf-8")
             raw = list(targetFileR.read())
             
             finalString = ""
@@ -65,7 +65,7 @@ def encryptContent():
                     
                 finalString += raw[j]
             
-            targetFileW = open(targetDir + targetFList[i], "w")
+            targetFileW = open(targetDir + targetFList[i], "w", encoding = "utf-8")
             targetFileW.write(finalString + "--EiNiCiRiYiPiTiEiD--")
             targetFileW.close()
              
@@ -77,7 +77,7 @@ def decryptContent():
     if len(targetFList) > 0:
         for i in range(len(targetFList)):
             try:
-                targetFileR = open(targetDir + targetFList[i], "r")
+                targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-8")
                 if not "--EiNiCiRiYiPiTiEiD--" in targetFileR.read():
                     print("File is already decrypted: " + targetFList[i])
                     continue
@@ -85,7 +85,7 @@ def decryptContent():
                 print("Unable to decrypt: " + targetFList[i])
                 continue
                 
-            targetFileR = open(targetDir + targetFList[i], "r")
+            targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-8")
             raw = list(targetFileR.read())
             
             finalString = ""
@@ -101,7 +101,7 @@ def decryptContent():
                 finalString += raw[j]
             
             finalString = finalString.replace("--EiNiCiRiYiPiTiEiD--", "")
-            targetFileW = open(targetDir + targetFList[i], "w")
+            targetFileW = open(targetDir + targetFList[i], "w", encoding = "utf-8")
             targetFileW.write(finalString)
             targetFileW.close()
              
