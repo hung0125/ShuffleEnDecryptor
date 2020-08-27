@@ -6,7 +6,7 @@ from os.path import isfile, join
 #Customize key file name here
 encryptedKey = "swp.txt"
 #Customize target path here
-targetDir = "C:\\Users\\peter\\Desktop\\FYP\\EnDecrypt_Storage\\"
+targetDir = "/storage/emulated/0/AppProjects/Python3/FYP/Encrypted_Storage/"
 
 
 if path.isfile(encryptedKey):
@@ -40,43 +40,8 @@ encryptLs = encryptRef.read()
 def encryptContent():
     if len(targetFList) > 0:
         for i in range(len(targetFList)):
-            utf = ""
-            #testing on utf-8
-            try:
-                targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-8")
-
-                if "--EiNiCiRiYiPiTiEiD--" in targetFileR.read():
-                    print("File is already encrypted: "+ targetFList[i]) 
-                    continue
-
-                utf = "utf-8"
-            except:
-                pass
-
-            #testing on utf-16
-            try:
-                targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-16")
-
-                if "--EiNiCiRiYiPiTiEiD--" in targetFileR.read():
-                    print("File is already encrypted: "+ targetFList[i]) 
-                    continue
-
-                utf = "utf-16"
-            except:
-                pass
-
-            #testing on utf-32
-            try:
-                targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-32")
-
-                if "--EiNiCiRiYiPiTiEiD--" in targetFileR.read():
-                    print("File is already encrypted: "+ targetFList[i]) 
-                    continue
-
-                utf = "utf-32"
-            except:
-                pass
-
+            
+            utf = validation(targetDir, targetFList[i])
 
             if len(utf) == 0:
                 print("Unable to encrypt: " + targetFList[i])
@@ -84,10 +49,16 @@ def encryptContent():
             
             targetFileR = open(targetDir + targetFList[i], "r", encoding = utf)
             
-            raw = list(targetFileR.read())
-
-            if  len(raw) == 0:
-                print("Unable to encrypt: " + targetFList[i])
+            raw = targetFileR.read()
+            
+            if "--EiNiCiRiYiPiTiEiD--" in raw:
+                print("File is already encrypted: "+ targetFList[i]) 
+                continue
+           
+            raw = list(raw)
+			
+            if len(raw) == 0:
+                print("Nothing encrypted in file: " + targetFList[i])
                 continue
             
             finalString = ""
@@ -114,51 +85,24 @@ def encryptContent():
 def decryptContent():
     if len(targetFList) > 0:
         for i in range(len(targetFList)):
-            utf = ""
-            #testing on utf-8
-            try:
-                targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-8")
-                if not "--EiNiCiRiYiPiTiEiD--" in targetFileR.read():
-                    print("File is already decrypted: " + targetFList[i])
-                    continue
-                utf = "utf-8"
-            except:
-                pass
-
-            #testing on utf-16
-            try:
-                targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-16")
-                if not "--EiNiCiRiYiPiTiEiD--" in targetFileR.read():
-                    print("File is already decrypted: " + targetFList[i])
-                    continue
-                utf = "utf-16"
-            except:
-                pass
-
-            #testing on utf-32
-            try:
-                targetFileR = open(targetDir + targetFList[i], "r", encoding = "utf-32")
-                if not "--EiNiCiRiYiPiTiEiD--" in targetFileR.read():
-                    print("File is already decrypted: " + targetFList[i])
-                    continue
-                utf = "utf-32"
-            except:
-                pass
-
+            
+            utf = validation(targetDir, targetFList[i])
 
             if len(utf) == 0:
                 print("Unable to decrypt: " + targetFList[i])
                 continue
             
             targetFileR = open(targetDir + targetFList[i], "r", encoding = utf)
-            raw = list(targetFileR.read())
-
-            if  len(raw) == 0:
-                print("Unable to encrypt: " + targetFList[i])
+            
+            raw = targetFileR.read()
+            
+            if not "--EiNiCiRiYiPiTiEiD--" in raw:
+                print("File is already decrypted: " + targetFList[i])
                 continue
             
-            finalString = ""
+            raw = list(raw)
             
+            finalString = ""
             
             for j in range(len(raw) - 21):
                 if raw[j] >= 'a' and raw[j] <= 'z':
@@ -178,12 +122,37 @@ def decryptContent():
     else:
         print("No file exist in the folder")
 
-if len(sys.argv) == 2: 
-    if sys.argv[1] == "en":
-        encryptContent()
-    elif sys.argv[1] == "de":
-        decryptContent()
-    else:
-        print("Invalid parameter is found: " + sys.argv[1])
-else:
-    print("Invalid or no parameter is found")
+def validation(targetDir, targetFList):
+            #testing on utf-8
+            utf = ""
+            try:
+                targetFileR = open(targetDir + targetFList, "r", encoding = "utf-8")
+                
+                targetFileR.read()
+                
+                utf = "utf-8"
+            except:
+                pass
+
+            #testing on utf-16
+            try:
+                targetFileR = open(targetDir + targetFList, "r", encoding = "utf-16")
+                
+                targetFileR.read()
+
+                utf = "utf-16"
+            except:
+                pass
+
+            #testing on utf-32
+            try:
+                targetFileR = open(targetDir + targetFList, "r", encoding = "utf-32")
+                
+                targetFileR.read()
+
+                utf = "utf-32"
+            except:
+                pass
+            return utf
+
+decryptContent()
