@@ -155,4 +155,12 @@ def validation(targetDir, targetFList):
                 pass
             return utf
 
-decryptContent()
+if len(sys.argv) == 2: 
+    if sys.argv[1] == "en":
+        encryptContent()
+    elif sys.argv[1] == "de":
+        decryptContent()
+    else:
+        print("Invalid parameter is found: " + sys.argv[1])
+else:
+    print("Invalid or no parameter is found")
