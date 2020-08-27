@@ -3,7 +3,7 @@ Improved version of caesar cipher encryption for plain text files.
 
 **1.  This script requires python3 or above.**<br/>
 **2.  This script reads files in UTF-8 encoding by default (V2 auto detects utf-8/16/32)**<br/>
-**3.  Make sure the contents of your files do not contain string "--EiNiCiRiYiPiTiEiD--"**<br/>
+**3.  Make sure the contents of your files do not contain the string "--EiNiCiRiYiPiTiEiD--"**<br/>
 
 Before using the script:
 1. Gather target files inside ONE folder
