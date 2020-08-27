@@ -5,8 +5,8 @@ from os import listdir
 from os.path import isfile, join
 #Customize key file name here
 encryptedKey = "swp.txt"
-#Customize target path here
-targetDir = "/storage/emulated/0/AppProjects/Python3/FYP/Encrypted_Storage/"
+#Customize target path here (Remember to add a slash symbol to the end of the path)
+targetDir = "/your/path/here/"
 
 
 if path.isfile(encryptedKey):
