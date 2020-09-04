@@ -1,5 +1,5 @@
 # ShuffleEnDecryptor
-Improved version of caesar cipher encryption for plain text files.
+Using shuffle cipher encryption algorithm for plain text files.
 
 **1.  This script requires python3 or above.**<br/>
 **2.  This script reads files in UTF-8 encoding by default (V2 auto detects utf-8/16/32)**<br/>
