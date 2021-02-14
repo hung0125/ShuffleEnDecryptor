@@ -1,0 +1,10 @@
+value: 1,2,0...255 <- shuffled bytes
+index: 0,1,2...255 
+
+orig text = 012 -> encrypted = 120
+
+method: loop i=0, i++ -> reverseKey[shufKey[i]] = i   
+value: 2,0,1...255
+index: 0,1,2...255
+
+text = 120 -> 012
